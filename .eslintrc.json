@@ -1,0 +1,3 @@
+{
+  "extends": ["./node_modules/standard/eslintre.json", "next/core-web-vitals"]
+}
