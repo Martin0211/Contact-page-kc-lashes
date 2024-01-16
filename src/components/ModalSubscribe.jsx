@@ -47,6 +47,59 @@ export default function Modal({ isVisible, onClose }) {
     phoneInput.setNumber("+52 ");
   }, []);
 
+  const isValidEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhoneNumber = (phoneNumber) => {
+    const phoneRegex = /^(\+?[0-9]{1,15})?$/;
+    const cleanedPhoneNumber = phoneNumber.replace(/[^\d+]/g, '');
+    return phoneRegex.test(cleanedPhoneNumber);
+  };
+
+  const onSubmit = async (e) => {
+    const names = e.target.names.value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    const surname = e.target.surname.value.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+    const email = e.target.email.value;
+    let phoneNumber = e.target.phoneNumber.value;
+
+    // Verifica si phoneNumber es igual al código de área predefinido y lo convierte en una cadena vacía
+    const areaCode = '+52';
+    if (phoneNumber === areaCode) {
+      phoneNumber = '';
+    }
+
+    const isEmailValid = email.trim() === '' || isValidEmail(email);
+    const isPhoneNumberValid = phoneNumber.trim() === '' || isValidPhoneNumber(phoneNumber) ;
+
+    if (!isEmailValid && !isPhoneNumberValid) {
+      window.alert("Ingresa un correo electrónico válido o un número de teléfono válido");
+      return;
+    }
+  
+    if (!isEmailValid) {
+      window.alert("Correo electrónico no válido");
+      return;
+    }
+  
+    if (!isPhoneNumberValid) {
+      window.alert("Número de teléfono no válido");
+      return;
+    }
+
+    const res = await fetch('http://localhost:3001/api/subscribed/', {
+      method: 'POST',
+      body: JSON.stringify({ names, surname, email, phoneNumber }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await res.json()
+    console.log(data);
+    onClose()
+  }
+
   return (
     <div className={`fixed inset-0 Obg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center ${isModalOpen ? 'visible' : 'hidden'}`} id='wrapper' onClick={handleClose}>
       <div className="w-[600px] m-8 flex flex-col">
@@ -63,31 +116,42 @@ export default function Modal({ isVisible, onClose }) {
             <div>
               <h2 className='text-black font-light text-center text-sm pb-3'> Sign up to get exclusive email updates directly from me. </h2>
             </div>
-            <div className='flex flex-col p-8 border-2 border-gray-800 rounded-3xl p-[24px]'>
-              <div className='w-[515px] h-[48px] py-[5px] border-2 border-gray-800 rounded-3xl'>
-                <input className='bg-transparent text-black focus:outline-none w-[511px] h-[32px] pl-[16px]'
-                  type="text"
-                  placeholder="Full Name"
-                  name="name"
-                />
+            <form onSubmit={onSubmit} method = 'POST'>
+              <div className='flex flex-col p-8 border-2 border-gray-800 rounded-3xl p-[24px]'>
+                <div className='flex'>
+                  <div className='w-[257px] h-[48px] py-[5px] border-2 border-gray-800 rounded-l-3xl'>
+                    <input className='bg-transparent text-black focus:outline-none w-[511px] h-[32px] pl-[16px]'
+                      type="text"
+                      placeholder="Names"
+                      name="names"
+                    />
+                  </div>
+                  <div className='w-[258px] h-[48px] py-[5px] border-t-2 border-r-2 border-b-2 border-gray-800 rounded-r-3xl'>
+                    <input className='bg-transparent text-black focus:outline-none w-[511px] h-[32px] pl-[16px]'
+                      type="text"
+                      placeholder="Surname"
+                      name="surname"
+                    />
+                  </div>
+                </div>
+                <div className='w-[515px] h-[48px] py-[5px] mt-4 border-2 border-gray-800 rounded-3xl'>
+                  <input className='bg-transparent text-black focus:outline-none w-[511px] h-[32px] pl-[16px]'
+                    type="text"
+                    placeholder="Email"
+                    name="email" />
+                </div>
+                <div className='w-[515px] h-[48px] py-[5px] mt-4 border-2 border-gray-800 rounded-3xl'>
+                  <input
+                    className='bg-transparent text-black focus:outline-none w-[511px] h-[32px] pl-[16px]'
+                    type="tel"
+                    placeholder="Whatsapp"
+                    name="phoneNumber"
+                    id="phone"
+                  />
+                </div>
+                <button className='w-[515px] h-[48px] py-[5px] mt-4 border-2 border-gray-800 rounded-3xl bg-gray-800 text-white' >Subscribe</button>
               </div>
-              <div className='w-[515px] h-[48px] py-[5px] mt-4 border-2 border-gray-800 rounded-3xl'>
-                <input className='bg-transparent text-black focus:outline-none w-[511px] h-[32px] pl-[16px]'
-                  type="text"
-                  placeholder="Email"
-                  name="email" />
-              </div>
-              <div className='w-[515px] h-[48px] py-[5px] mt-4 border-2 border-gray-800 rounded-3xl'>
-                <input
-                  className='bg-transparent text-black focus:outline-none w-[511px] h-[32px] pl-[16px]'
-                  type="tel"
-                  placeholder="Whatsapp"
-                  name="phone"
-                  id="phone"
-                />
-              </div>
-              <button className='w-[515px] h-[48px] py-[5px] mt-4 border-2 border-gray-800 rounded-3xl bg-gray-800 text-white' >Subscribe</button>
-            </div>
+            </form>
           </div>
         </div>
       </div>
