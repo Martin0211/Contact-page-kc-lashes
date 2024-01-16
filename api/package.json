@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "API para el proyecto KC LASHES MX, un servicio especializado en extensiones de pestañas. Proporciona acceso a diversas funcionalidades que incluyen la gestión de clientes, información sobre productos y servicios, así como datos relevantes para la administración de la plataforma.",
+  
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": {
+    "name": "Mr. White Dev",
+    "email": "Martin021191@gmail.com"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "sequelize": "^6.35.1",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
