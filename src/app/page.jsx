@@ -31,7 +31,7 @@ export default function Home() {
               height={141}
             />
 
-            <h1 className="mt-4 text-center">KC LASHES MX</h1>
+            <h1 className="mt-4 text-center text-white">KC LASHES MX</h1>
             <ButtonLocation className="mb-4" />
             <div className="flex">
               <IcomRedes icon={BsWhatsapp} ruta="https://api.whatsapp.com/message/YMBXIE727E2VB1?autoload=1&app_absent=0" />
@@ -44,7 +44,7 @@ export default function Home() {
 
           <Abaut />
 
-          <h3 className="text-center">CONTACTAME AQUÍ. 👇</h3>
+          <h3 className="text-center text-white">CONTACTAME AQUÍ. 👇</h3>
           <BotonPersonalizado
             icon={BsWhatsapp}
             titulo="WhatsApp"
@@ -69,7 +69,7 @@ export default function Home() {
             subtitulo="Conoce un poco mas de mi Aquí"
             ruta="https://www.facebook.com/kclashesmex"
           />
-          <h3 className="text-center">Lashtips</h3>
+          <h3 className="text-center text-white pb-4">LASHTIPS 💡</h3>
           <div className=' flex justify-center rounded-[36px]'>
             <VideoTiktok/>
           </div>
