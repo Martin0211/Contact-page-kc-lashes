@@ -10,7 +10,7 @@ const fetchVideo = () => {
 export default async function VideoTiktok(){
     const dataApi = await fetchVideo()
     return (
-        <div className='w-min h-[775px] bg-white'>
+        <div className='w-min bg-trasparent'>
         <Head>
           <link rel="stylesheet" href="/styles.css" />
           <script className='bg-transparent' src="/script.js"></script>
