@@ -88,7 +88,9 @@ export default function Modal({ isVisible, onClose }) {
       return;
     }
 
-    const res = await fetch('http://localhost:3001/api/subscribed/', {
+    const NEXT_PUBLIC_API_URL= process.env.API_URL || "http://localhost:3001";
+    
+    const res = await fetch(`${NEXT_PUBLIC_API_URL}/api/subscribed/`, {
       method: 'POST',
       body: JSON.stringify({ names, surname, email, phoneNumber }),
       headers: {
